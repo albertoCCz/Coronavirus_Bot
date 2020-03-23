@@ -6,7 +6,7 @@ driver.get('https://covid19.isciii.es/')
 def fechaActualizacion(driver):
     """
     Almacena la fecha de última actualización de los datos recogidos
-    :return:
+    :return: array con los datos
     """
     fecha = driver.find_element_by_id('fecha').text
     hora = driver.find_element_by_id('hora').text
@@ -29,5 +29,5 @@ def datosGlobales(driver):
 def datosCCAA(driver):
     """
     Recoge los datos por Comunidad Autónoma
-    :return: 
+    :return: array 2x2 con los datos
     """
