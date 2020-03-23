@@ -18,7 +18,7 @@ def stats(update, context):
 
 #programa principal
 def main():
-    updater = Updater(token='968373168:AAH0NErTU_0MdyUJDcjB9qm-D4ZtWP0lEo8', use_context=True)
+    updater = Updater(token=<token>, use_context=True)
     dispatcher = updater.dispatcher
 
     #start handler
