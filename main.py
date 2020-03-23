@@ -2,7 +2,7 @@ from telegram.ext import Updater, CommandHandler
 import getStats
 
 #nuestro token
-token = '968373168:AAH0NErTU_0MdyUJDcjB9qm-D4ZtWP0lEo8'
+token = ''
 
 #creamos todas las funciones que queramos
 def start(update, context):
