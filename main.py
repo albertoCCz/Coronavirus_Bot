@@ -2,7 +2,7 @@ from telegram.ext import Updater, CommandHandler
 import getStats
 
 #nuestro token
-token = ''
+token = open('BotToken.txt', 'r').readline()
 
 #creamos todas las funciones que queramos
 def start(update, context):
@@ -11,23 +11,16 @@ def start(update, context):
 def statsGlobal(update, context):
     datos = getStats.datosGlobales(getStats.driver)
     actualizacion = getStats.fechaActualizacion(getStats.driver)
-    casos = datos[0]
-    casos24 = datos[1]
-    recuperados = datos[2]
-    hospitalizados = casos[3]
-    fallecidos = datos[4]
-    fecha = actualizacion[0]
-    hora = actualizacion[1]
 
     context.bot.send_message(chat_id=update.effective_chat.id,
                              text="ACTUALIZACIÓN: " +
-                             fecha + " a las " + hora +
+                             actualizacion[0] + " a las " + actualizacion[1] +
                              "\n————————————————————————"
-                             "\nNº de casos: " + casos +
-                             "\nCasos últimas 24h: " + casos24 +
-                             "\nNº de recuperados: " + recuperados +
-                             "\nNº hospitalizados: " + hospitalizados +
-                             "\nNº de fallecidos: " + fallecidos)
+                             "\nNº de casos: " + datos[0] +
+                             "\nCasos últimas 24h: " + datos[1] +
+                             "\nNº de recuperados: " + datos[2] +
+                             "\nNº hospitalizados: " + datos[3] +
+                             "\nNº de fallecidos: " + datos[4])
 
 
 #programa principal
