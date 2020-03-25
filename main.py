@@ -37,6 +37,12 @@ def acumuladaCasos(update, context):
                              text=acumCasos)
 
 
+def tablaComunidades(update, context):
+    head = getStats.datosCCAA(getStats.driver)[0]
+    body = getStats.datosCCAA(getStats.driver)[1]
+
+
+
 #programa principal
 def main():
     updater = Updater(token=token, use_context=True)
