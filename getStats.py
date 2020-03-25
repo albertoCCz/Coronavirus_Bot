@@ -1,5 +1,4 @@
 from selenium import webdriver as wd
-import numpy as np
 
 driver = wd.Firefox()
 driver.get('https://covid19.isciii.es/')
@@ -35,18 +34,18 @@ def datosCCAA(driver):
     :return: array 20x4 con los datos
     """
     numeroCCAA = 19
-    head = []
-    body = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-
-    for i in range(0,numeroCCAA):
-        for j in range(0,4):
-            body[i].append(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[7]/table/tbody/tr[' +
-                                                        str(i+1) + ']/td[' + str(j+1) + ']').text)
-    for j in range(0, 4):
-        head.append(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[7]/table/thead/tr/th[' +
+    num_col = 4
+    table = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+    for j in range(0, num_col):
+        table[0].append(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[7]/table/thead/tr/th[' +
                                                  str(j + 1) + ']').text)
+    for i in range(0,numeroCCAA):
+        for j in range(0,num_col):
+            table[i+1].append(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[7]/table/tbody/tr[' +
+                                                        str(i+1) + ']/td[' + str(j+1) + ']').text)
 
-    return [head, body]
+
+    return table
 
 def graficas(driver):
     """
@@ -61,4 +60,3 @@ def graficas(driver):
         if "CURVASTATUS" in image.get_attribute('src'):
             src.append(image.get_attribute('src'))
     return src
-
