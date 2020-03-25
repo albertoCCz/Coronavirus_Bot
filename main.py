@@ -38,9 +38,17 @@ def acumuladaCasos(update, context):
 
 
 def tablaComunidades(update, context):
-    head = getStats.datosCCAA(getStats.driver)[0]
-    body = getStats.datosCCAA(getStats.driver)[1]
+    table = getStats.datosCCAA(getStats.driver)
+    msg = ""
 
+    for i in range(len(table)):
+        for j in range(len(table[0])):
+            msg += table[i][j] + " | "
+            if((j+1) % 4 == 0):
+                msg += "\n"
+
+    context.bot.send_message(chat_id=update.effective_chat.id,
+                             text=msg)
 
 
 #programa principal
@@ -64,6 +72,9 @@ def main():
     acumCasos_handler = CommandHandler("acumuladoCasos", acumuladaCasos)
     dispatcher.add_handler(acumCasos_handler)
 
+    #comunidades handler
+    comunidades_handler = CommandHandler("comunidades", tablaComunidades)
+    dispatcher.add_handler(comunidades_handler)
 
     updater.start_polling()
 
