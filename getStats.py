@@ -38,14 +38,14 @@ def datosCCAA(driver):
     table = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
     for j in range(0, num_col):
         table[0].append(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[7]/table/thead/tr/th[' +
-                                                 str(j + 1) + ']').text)
+                                                     str(j+1) + ']').text)
     for i in range(0,numeroCCAA):
         for j in range(0,num_col):
             table[i+1].append(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[7]/table/tbody/tr[' +
-                                                        str(i+1) + ']/td[' + str(j+1) + ']').text)
-
+                                                           str(i+1) + ']/td[' + str(j+1) + ']').text)
 
     return table
+
 
 def graficas(driver):
     """
@@ -59,4 +59,5 @@ def graficas(driver):
             src.append(image.get_attribute('src'))
         if "CURVASTATUS" in image.get_attribute('src'):
             src.append(image.get_attribute('src'))
+            
     return src
