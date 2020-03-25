@@ -31,9 +31,22 @@ def datosGlobales(driver):
 
 def datosCCAA(driver):
     """
-    Recoge los datos por Comunidad Autónoma
-    :return:
+    Recoge los datos por Comunidad Autónoma en una tabla
+    :return: array 20x4 con los datos
     """
+    numeroCCAA = 19
+    head = []
+    body = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+
+    for i in range(0,numeroCCAA):
+        for j in range(0,4):
+            body[i].append(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[7]/table/tbody/tr[' +
+                                                        str(i+1) + ']/td[' + str(j+1) + ']').text)
+    for j in range(0, 4):
+        head.append(driver.find_element_by_xpath('/html/body/div[2]/div[1]/div[7]/table/thead/tr/th[' +
+                                                 str(j + 1) + ']').text)
+
+    return [head, body]
 
 def graficas(driver):
     """
