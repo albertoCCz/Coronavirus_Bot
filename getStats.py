@@ -1,4 +1,5 @@
 from selenium import webdriver as wd
+import numpy as np
 
 driver = wd.Firefox()
 driver.get('https://covid19.isciii.es/')
@@ -6,12 +7,13 @@ driver.get('https://covid19.isciii.es/')
 def fechaActualizacion(driver):
     """
     Almacena la fecha de última actualización de los datos recogidos
-    :return: array con los datos
+    :return:
     """
     fecha = driver.find_element_by_id('fecha').text
     hora = driver.find_element_by_id('hora').text
 
     return [fecha, hora]
+
 
 def datosGlobales(driver):
     """
@@ -26,8 +28,24 @@ def datosGlobales(driver):
 
     return [casos, casos24, recuperados, hospitalizados, fallecidos]
 
+
 def datosCCAA(driver):
     """
     Recoge los datos por Comunidad Autónoma
-    :return: array 2x2 con los datos
+    :return:
     """
+
+def graficas(driver):
+    """
+    Recoge la gráfica de datos acumulados
+    :return: imagen
+    """
+    img = driver.find_elements_by_tag_name('img')
+    src = []
+    for image in img:
+        if "CURVAACUMULADA" in str(image.get_attribute('src')):
+            src.append(image.get_attribute('src'))
+        if "CURVASTATUS" in image.get_attribute('src'):
+            src.append(image.get_attribute('src'))
+    return src
+
