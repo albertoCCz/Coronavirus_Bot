@@ -1,5 +1,6 @@
 from telegram.ext import Updater, CommandHandler
 import getStats
+import time
 
 #nuestro token
 token = open('BotToken.txt', 'r').readline()
@@ -24,14 +25,14 @@ def statsGlobal(update, context):
 
 
 def acumulada(update, context):
-    acum = getStats.graficas(getStats.driver)[0]
+    acum = getStats.graficas(getStats.driver)[0] + "?a=" +str(time.time())
 
     context.bot.send_message(chat_id=update.effective_chat.id,
                              text=acum)
 
 
 def acumuladaCasos(update, context):
-    acumCasos = getStats.graficas(getStats.driver)[1]
+    acumCasos = getStats.graficas(getStats.driver)[1] + "?a=" +str(time.time())
 
     context.bot.send_message(chat_id=update.effective_chat.id,
                              text=acumCasos)
@@ -51,6 +52,17 @@ def tablaComunidades(update, context):
                              text=msg)
 
 
+def help(update, context):
+    msg = "/start:  mensaje 'Activo!'" + "\n" +\
+          "/global: Datos a nivel nacional" + "\n" +\
+          "/acumulado: Gráfica casos acumulados" + "\n" +\
+          "/acumuladoCasos: Gráfica desglose de casos" + "\n" +\
+          "/comunidades: Casos por Com. Autónoma"
+
+    context.bot.send_message(chat_id=update.effective_chat.id,
+                             text=msg)
+
+
 #programa principal
 def main():
     updater = Updater(token=token, use_context=True)
@@ -59,6 +71,10 @@ def main():
     #start handler
     start_handler = CommandHandler("start", start)
     dispatcher.add_handler(start_handler)  # registramos el comando en el dispatcher
+
+    #help handler
+    help_handler = CommandHandler("help", help)
+    dispatcher.add_handler(help_handler)
 
     #global handler
     stats_handler = CommandHandler("global", statsGlobal)
